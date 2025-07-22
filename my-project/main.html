@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Merchant Recommendation Engine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .carousel {
+      position: relative;
+      overflow: hidden;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      flex-shrink: 0;
+      text-align: center;
+    }
+    .carousel-slide img {
+      max-height: 400px;
+      margin: 0 auto;
+    }
+    .carousel-caption {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      color: #d1d5db;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.5);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      padding: 0 0.5rem;
+      z-index: 10;
+      cursor: pointer;
+    }
+    .carousel-btn.left {
+      left: 0.5rem;
+    }
+    .carousel-btn.right {
+      right: 0.5rem;
+    }
+  </style>
+</head>
+<body class="bg-[#0033A0] text-white">
+  <!-- Hero Section -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-4">
+    <h1 class="text-5xl font-extrabold mb-4">Smart Merchant Recommendation Engine</h1>
+    <p class="text-lg text-white mb-6">Blending ML, Business Rules & Redemption Behavior</p>
+    <p class="animate-bounce text-white text-lg">Scroll to explore ⬇️</p>
+  </section>
+
+  <!-- Section 2: Data Overview -->
+  <section class="py-16 bg-white text-[#0033A0]">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-6">📊 Data Overview</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-xl font-semibold">
+        <div class="bg-[#F1F4F9] p-6 rounded-lg">71,408 Customers (Txns)</div>
+        <div class="bg-[#F1F4F9] p-6 rounded-lg">138,361 Customers (Balances)</div>
+        <div class="bg-[#F1F4F9] p-6 rounded-lg">176,424 Transactions</div>
+        <div class="bg-[#F1F4F9] p-6 rounded-lg">96 Unique Merchants</div>
+      </div>
+
+      <!-- Gallery Carousel -->
+      <div class="carousel mt-10 relative w-full max-w-3xl mx-auto">
+        <div class="carousel-track" id="carouselTrack">
+          <!-- Images will be dynamically inserted here -->
+        </div>
+        <button class="carousel-btn left" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="carousel-btn right" onclick="moveSlide(1)">&#10095;</button>
+      </div>
+    </div>
+  </section>
+<!-- Section 2.5: Merchant Unification -->
+<section class="py-16 bg-[#F1F4F9] text-[#0033A0]">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-3xl font-bold mb-6">🔗 Merchant Unification</h2>
+
+    <div class="bg-white p-6 rounded-lg shadow text-left">
+      <p class="mb-6 text-lg text-center">
+        To ensure consistency across duplicate or multibrand merchants, we apply a set of rules and manual mappings. Below are some examples of how we unify merchant names:
+
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-sm text-left border border-[#0033A0]">
+          <thead class="bg-[#0033A0] text-white">
+            <tr>
+              <th class="px-4 py-2 border">Original Name</th>
+              <th class="px-4 py-2 border">Unified Name</th>
+              <th class="px-4 py-2 border">Rule Applied</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white text-[#0033A0]">
+            <tr><td class="px-4 py-2 border">B.Tech ( Archived )</td><td class="px-4 py-2 border">B.Tech</td><td class="px-4 py-2 border">(?i)^B\.?Tech\b.*</td></tr>
+            <tr><td class="px-4 py-2 border">Ezz El Deen Pharmacy</td><td class="px-4 py-2 border">Ezz Eldeen Pharmacy</td><td class="px-4 py-2 border">Manual Mapping</td></tr>
+            <tr><td class="px-4 py-2 border">SP Maadi</td><td class="px-4 py-2 border">SP</td><td class="px-4 py-2 border">(?i)^SP\b.*</td></tr>
+            <tr><td class="px-4 py-2 border">Town Team (Closed)</td><td class="px-4 py-2 border">Town Team</td><td class="px-4 py-2 border">(?i)^Town\s*Team\b.*</td></tr>
+            <tr><td class="px-4 py-2 border">Town Team ( Archived )</td><td class="px-4 py-2 border">Town Team</td><td class="px-4 py-2 border">(?i)^Town\s*Team\b.*</td></tr>
+            <tr><td class="px-4 py-2 border">Wadi Degla Muharram Bek</td><td class="px-4 py-2 border">Wadi Degla</td><td class="px-4 py-2 border">(?i)^Wadi\s*Degla\b.*</td></tr>
+            <tr><td class="px-4 py-2 border">Wadi Degla October 1</td><td class="px-4 py-2 border">Wadi Degla</td><td class="px-4 py-2 border">(?i)^Wadi\s*Degla\b.*</td></tr>
+            <tr><td class="px-4 py-2 border">Wadi Degla Damietta</td><td class="px-4 py-2 border">Wadi Degla</td><td class="px-4 py-2 border">(?i)^Wadi\s*Degla\b.*</td></tr>
+            <tr><td class="px-4 py-2 border">Wadi Degla October 2</td><td class="px-4 py-2 border">Wadi Degla</td><td class="px-4 py-2 border">(?i)^Wadi\s*Degla\b.*</td></tr>
+            <tr><td class="px-4 py-2 border">Wadi Degla Lotus</td><td class="px-4 py-2 border">Wadi Degla</td><td class="px-4 py-2 border">(?i)^Wadi\s*Degla\b.*</td></tr>
+            <tr><td class="px-4 py-2 border">Wadi Degla Assuit</td><td class="px-4 py-2 border">Wadi Degla</td><td class="px-4 py-2 border">(?i)^Wadi\s*Degla\b.*</td></tr>
+            <tr><td class="px-4 py-2 border">Wadi Degla Maadi</td><td class="px-4 py-2 border">Wadi Degla</td><td class="px-4 py-2 border">(?i)^Wadi\s*Degla\b.*</td></tr>
+            <tr><td class="px-4 py-2 border">Wadi Degla Heliopolis</td><td class="px-4 py-2 border">Wadi Degla</td><td class="px-4 py-2 border">(?i)^Wadi\s*Degla\b.*</td></tr>
+            <tr><td class="px-4 py-2 border">Wadi Degla Nakhil</td><td class="px-4 py-2 border">Wadi Degla</td><td class="px-4 py-2 border">(?i)^Wadi\s*Degla\b.*</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Summary -->
+      <div class="mt-6 text-left text-lg bg-white p-4 rounded-lg shadow">
+        <p class="mb-2"><strong>Original merchants:</strong> 136</p>
+        <p class="mb-2"><strong>Unified merchants:</strong> 96</p>
+        <p class="mb-2"><strong>Names changed:</strong> 40 <span class="text-sm text-gray-600">(29.4%)</span></p>
+        <p class="mt-4"><strong>Sorted Unified Merchant Names:</strong></p>
+        <div class="text-sm mt-1 text-gray-700">
+AMS, Abou Shakra, Active Abou Alaa, Ahmed El Sallab, Akher El Anoud, Al Serafy Pharmacy, Alfa Market, Aman, American Eagle, Arabiata, Aswaq Fathalla, Awlad Ragab, B.Tech, BIM, Baraka Optics, Bath & Body Works, Beano'S, Bernasos, Beverly Hills Polo Club, Bloom Pharmacy, Blue Bus, Breadfast, Burger King, Careem, Carrefour, Chilis, Compu Me, Computer Shop, Converse, Cook Door, Credit Agricole Bank, Dally Dress, Daniel Hechter, Debenhams, Dejavu, Dubai Phone, Dukes, Elmenus, Espresso Lab, Ezz Eldeen Pharmacy, Feteera, Fit & Fix, Fouda Pharmacy, Ghataty, Gold'S Gym Zamalek, Gomla Market, Gourmet, H&M, Haj Arafa, Healthy & Tasty, Heart Attack, Hedeya, Imtenan, Intersport, Joly Optics, Kansas, Kheir Zaman, La Poire, Lulu Market, Metro Market, Mince, Mobil Gas Stations, Mobile Shop, Mori Sushi, New Balance, New Born, Normandy Pharmacy, On The Run, Or Fashion, Oscar, Panda, Pizza El Sultan, Ranin, Ravin, Rizkalla, SP, Samir & Aly, Seif Pharmacy, Spinneys, Switch Plus, Tamara, Tech Me, Ted'S, The Body Shop, The Way To Go, Tie Shop, Town Team, Tradeline, Travco, Tree, Union Stores, Virgin Megastore, Wadi Degla, Zack'S Fried Chicken, Zadna Dates, Zahran Market        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Section: Customer & Merchant Cards -->
+<section class="py-16 bg-gray-100 text-gray-900">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-10">🪪 Customer & Merchant Cards</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+
+      <!-- Customer Card -->
+      <div class="bg-white shadow-md rounded-xl p-6 space-y-2">
+        <h3 class="text-2xl font-semibold text-[#0033A0] mb-4">Customer Profile</h3>
+        <ul class="text-sm leading-relaxed">
+          <li><strong>Customer ID:</strong> C123456</li>
+          <li><strong>Total Redemptions:</strong> 24</li>
+          <li><strong>Total Redeemed Value:</strong> 6,800 EGP</li>
+          <li><strong>Avg Redeemed Value:</strong> 283.3 EGP</li>
+          <li><strong>Median Redeemed Value:</strong> 250 EGP</li>
+          <li><strong>First Redemption:</strong> Jan 2023</li>
+          <li><strong>Last Redemption:</strong> Jun 2024</li>
+          <li><strong>Active Months Count:</strong> 10</li>
+          <li><strong>Max Consecutive Months:</strong> 4</li>
+          <li><strong>Most Used Merchant:</strong> B.Tech</li>
+          <li><strong>Most Used Tier:</strong> Tier 2</li>
+          <li><strong>Tier Diversity:</strong> High</li>
+          <li><strong>Most Used Category:</strong> Electronics</li>
+          <li><strong>Category Diversity:</strong> Medium</li>
+        </ul>
+      </div>
+
+      <!-- Merchant Card -->
+      <div class="bg-white shadow-md rounded-xl p-6 space-y-2">
+        <h3 class="text-2xl font-semibold text-[#0033A0] mb-4">Merchant Profile</h3>
+        <ul class="text-sm leading-relaxed">
+          <li><strong>Merchant Name:</strong> B.Tech</li>
+          <li><strong>Category:</strong> Electronics</li>
+          <li><strong>Avg Redeemed Value:</strong> 350 EGP</li>
+          <li><strong>Total Redemptions:</strong> 5,600</li>
+          <li><strong>Tier:</strong> Tier 1</li>
+          <li><strong>Unified Merchant:</strong> Yes</li>
+          <li><strong>Loyalty Score:</strong> 0.89</li>
+          <li><strong>Popularity Score:</strong> 0.95</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Segmentation Types -->
+<section class="py-16 bg-[#F1F4F9] text-[#0033A0]">
+  <div class="max-w-6xl mx-auto text-center relative">
+    <h2 class="text-3xl font-bold mb-10">🔍 Segmentation Types</h2>
+
+    <!-- Cards Container -->
+    <div class="relative flex justify-center gap-8">
+      <!-- Card 1 -->
+      <div class="bg-white p-6 rounded-lg shadow font-semibold w-40 h-28 flex items-center justify-center">Accumulators</div>
+      <!-- Arrow 1 -->
+      <div class="flex items-center">
+        <span class="text-3xl text-gray-400">➜</span>
+      </div>
+      <!-- Card 2 -->
+      <div class="bg-white p-6 rounded-lg shadow font-semibold w-40 h-28 flex items-center justify-center">One-Txners</div>
+      <!-- Arrow 2 -->
+      <div class="flex items-center">
+        <span class="text-3xl text-gray-400">➜</span>
+      </div>
+      <!-- Card 3 -->
+      <div class="bg-white p-6 rounded-lg shadow font-semibold w-40 h-28 flex items-center justify-center">Two-Txners</div>
+      <!-- Arrow 3 -->
+      <div class="flex items-center">
+        <span class="text-3xl text-gray-400">➜</span>
+      </div>
+      <!-- Card 4 -->
+      <div class="bg-white p-6 rounded-lg shadow font-semibold w-40 h-28 flex items-center justify-center">Three+ Txners</div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Section 4: Recommendation Logic -->
+  <section class="py-16 bg-white text-[#0033A0]">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-6">🧠 Recommendation Strategies</h2>
+
+      <!-- Accumulators -->
+      <div class="bg-[#F1F4F9] p-6 rounded-lg mb-6">
+        <h3 class="text-2xl font-semibold mb-2">Accumulators</h3>
+        <p>Recommended merchants based on balance tier and popularity.</p>
+      </div>
+
+      <!-- One-Txn -->
+      <div class="bg-[#F1F4F9] p-6 rounded-lg mb-6">
+        <h3 class="text-2xl font-semibold mb-2">One-Transaction Customers</h3>
+        <p>Scored by popularity, tier match, category match, and wallet logic.</p>
+      </div>
+
+
+      <!-- Two-Txn Voting (Insert from index.html) -->
+      <div class="bg-[#F1F4F9] p-6 rounded-lg mb-6">
+        <h3 class="text-2xl font-semibold mb-2">Two-Transaction Voting Engine</h3>
+        <p>Recommending the best merchant based on Dsquares core values.</p>
+        <p>Utilizes a voting engine with SVD, Markov, and XGBoost models.</p>
+        <iframe src="index.html" class="w-full h-[700px] border rounded-lg"></iframe>
+      </div>
+
+      <!-- Three+ Txn -->
+      <div class="bg-[#F1F4F9] p-6 rounded-lg">
+        <h3 class="text-2xl font-semibold mb-2">Three or More Transactions</h3>
+        <p>Multi-model voting from SVD, Markov, and XGBoost with consensus logic.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#0033A0] text-center py-6 text-white">
+    © 2025 Dsquares | Built by Saleh Chadi
+  </footer>
+
+  <script>
+    const carouselTrack = document.getElementById('carouselTrack');
+    const imageFolder = 'imgs'; // all lowercase folder
+    const imageNames = [
+      'output.png',
+      'output2.png',
+      'output3.png',
+      'output4.png'
+    ];
+
+    imageNames.forEach(name => {
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide';
+      slide.innerHTML = `
+        <div class="flex flex-col items-center justify-center">
+          <img src="${imageFolder}/${name}" alt="${name}" class="rounded shadow-md" />
+          <div class="carousel-caption">${name}</div>
+        </div>
+      `;
+      carouselTrack.appendChild(slide);
+    });
+
+    let currentSlide = 0;
+    const totalSlides = imageNames.length;
+
+    function moveSlide(direction) {
+      currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+      document.getElementById('carouselTrack').style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    setInterval(() => moveSlide(1), 5000);
+  </script>
+</body>
+</html>
